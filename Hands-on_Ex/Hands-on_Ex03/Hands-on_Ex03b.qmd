@@ -1,0 +1,15 @@
+---
+title: "Hands-on Exercise 3B"
+author: "Nguyen Trong Nhan"
+date: "29 January 2026" 
+date-modified: "last-modified" 
+format: html 
+editor: visual 
+freeze: true 
+execute:   
+  eval: true   
+  echo: true   
+  warning: false
+---
+
+# 
