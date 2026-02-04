@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 4B"
+title: "Hands-on Exercise 4C"
 author: "Nguyen Trong Nhan"
 date: "04 February 2026" 
 date-modified: "last-modified" 
@@ -459,8 +459,9 @@ exam %>%
 ## 5.1 Installing ungeviz package
 
 ```{r}
-install.packages("miniUI")
-devtools::install_github("wilkelab/ungeviz")
+# install.packages("miniUI")
+# devtools::install_github("wilkelab/ungeviz")
+# uncomment and run this once only.
 ```
 
 ```{r}
