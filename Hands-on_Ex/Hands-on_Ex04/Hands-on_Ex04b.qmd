@@ -1,7 +1,7 @@
 ---
 title: "Hands-on Exercise 4B"
 author: "Nguyen Trong Nhan"
-date: "02 February 2026" 
+date: "04 February 2026" 
 date-modified: "last-modified" 
 format: html 
 editor: visual 
