@@ -49,7 +49,7 @@ wh <- read_csv("data/WHData-2018.csv")
 
 The output tibbled data frame is called **wh**.
 
-## 2.2 Preparing the data 
+## 2.2 Preparing the data
 
 Next, we need to change the rows by country name instead of row number by using the code chunk below
 

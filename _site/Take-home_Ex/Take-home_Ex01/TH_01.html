@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nguyen Trong Nhan">
+<meta name="dcterms.date" content="2026-02-14">
+
+<title>Take-home Exercise 1: Beyond the Harvest – ISSS608-VAA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cc1d64809b8ed731f92ea1275fe9f05b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ISSS608-VAA</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Hands-on Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
+ <span class="dropdown-text">Hands-on Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+ <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html">
+ <span class="dropdown-text">Hands-on Exercise 3A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html">
+ <span class="dropdown-text">Hands-on Exercise 3B</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04a.html">
+ <span class="dropdown-text">Hands-on Exercise 4A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04b.html">
+ <span class="dropdown-text">Hands-on Exercise 4B</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html">
+ <span class="dropdown-text">Hands-on Exercise 4C</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html">
+ <span class="dropdown-text">Hands-on Exercise 4D</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05a.html">
+ <span class="dropdown-text">Hands-on Exercise 5A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05b.html">
+ <span class="dropdown-text">Hands-on Exercise 5B</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05c.html">
+ <span class="dropdown-text">Hands-on Exercise 5C</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05d.html">
+ <span class="dropdown-text">Hands-on Exercise 5D</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05e.html">
+ <span class="dropdown-text">Hands-on Exercise 5E</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Take Home Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex01/TH_01.html">
+ <span class="dropdown-text">Take Home Exercise 1</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#beyond-the-harvest-what-the-fields-do-not-yield" id="toc-beyond-the-harvest-what-the-fields-do-not-yield" class="nav-link active" data-scroll-target="#beyond-the-harvest-what-the-fields-do-not-yield">Beyond the Harvest: What the Fields Do Not Yield</a></li>
+  <li><a href="#prologue-echoes-of-history-culture-and-religion" id="toc-prologue-echoes-of-history-culture-and-religion" class="nav-link" data-scroll-target="#prologue-echoes-of-history-culture-and-religion">Prologue: Echoes of History, Culture, and Religion</a></li>
+  <li><a href="#foreword" id="toc-foreword" class="nav-link" data-scroll-target="#foreword">Foreword</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">1. Getting Started</a>
+  <ul class="collapse">
+  <li><a href="#importing-packages" id="toc-importing-packages" class="nav-link" data-scroll-target="#importing-packages">1.1 Importing Packages</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data">1.2 Importing Data</a></li>
+  </ul></li>
+  <li><a href="#data-cleaning-and-quality-assurance" id="toc-data-cleaning-and-quality-assurance" class="nav-link" data-scroll-target="#data-cleaning-and-quality-assurance">2. Data Cleaning and Quality Assurance</a>
+  <ul class="collapse">
+  <li><a href="#mapping-categorical-variables" id="toc-mapping-categorical-variables" class="nav-link" data-scroll-target="#mapping-categorical-variables">2.1 Mapping Categorical Variables</a></li>
+  <li><a href="#quality-check-missing-values" id="toc-quality-check-missing-values" class="nav-link" data-scroll-target="#quality-check-missing-values">2.2 Quality Check: Missing Values</a></li>
+  <li><a href="#quality-check-validating-income" id="toc-quality-check-validating-income" class="nav-link" data-scroll-target="#quality-check-validating-income">2.3 Quality Check: Validating Income</a></li>
+  <li><a href="#quality-check-duplicates" id="toc-quality-check-duplicates" class="nav-link" data-scroll-target="#quality-check-duplicates">2.4 Quality Check: Duplicates</a></li>
+  <li><a href="#final-data-summary" id="toc-final-data-summary" class="nav-link" data-scroll-target="#final-data-summary">2.5 Final Data Summary</a></li>
+  </ul></li>
+  <li><a href="#the-analysis" id="toc-the-analysis" class="nav-link" data-scroll-target="#the-analysis">3. The Analysis</a>
+  <ul class="collapse">
+  <li><a href="#the-geographic-divide-income-by-province" id="toc-the-geographic-divide-income-by-province" class="nav-link" data-scroll-target="#the-geographic-divide-income-by-province">3.1 The Geographic Divide: Income by Province</a></li>
+  <li><a href="#the-gender-wage-gap-occupational-segregation" id="toc-the-gender-wage-gap-occupational-segregation" class="nav-link" data-scroll-target="#the-gender-wage-gap-occupational-segregation">3.2 The Gender Wage Gap &amp; Occupational Segregation</a></li>
+  <li><a href="#the-education-premium-a-ceiling-on-opportunity" id="toc-the-education-premium-a-ceiling-on-opportunity" class="nav-link" data-scroll-target="#the-education-premium-a-ceiling-on-opportunity">3.3 The Education Premium: A ceiling on opportunity?</a></li>
+  <li><a href="#structural-inequality-kinh-vs.-minorities" id="toc-structural-inequality-kinh-vs.-minorities" class="nav-link" data-scroll-target="#structural-inequality-kinh-vs.-minorities">3.4 Structural Inequality: Kinh vs.&nbsp;Minorities</a></li>
+  <li><a href="#the-compounding-burden-ethnicity-and-education" id="toc-the-compounding-burden-ethnicity-and-education" class="nav-link" data-scroll-target="#the-compounding-burden-ethnicity-and-education">3.5 The Compounding Burden: Ethnicity and Education</a></li>
+  <li><a href="#moving-beyond-agriculture" id="toc-moving-beyond-agriculture" class="nav-link" data-scroll-target="#moving-beyond-agriculture">3.6 Moving Beyond Agriculture</a></li>
+  <li><a href="#the-structure-of-wealth" id="toc-the-structure-of-wealth" class="nav-link" data-scroll-target="#the-structure-of-wealth">3.7 The Structure of Wealth</a></li>
+  <li><a href="#the-credit-catalyst" id="toc-the-credit-catalyst" class="nav-link" data-scroll-target="#the-credit-catalyst">3.8 The Credit Catalyst</a></li>
+  </ul></li>
+  <li><a href="#food-for-thought-conclusion-beyond-the-modern-occupations" id="toc-food-for-thought-conclusion-beyond-the-modern-occupations" class="nav-link" data-scroll-target="#food-for-thought-conclusion-beyond-the-modern-occupations">4. Food for Thought &amp; Conclusion: Beyond the Modern Occupations</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Take-home Exercise 1: Beyond the Harvest</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nguyen Trong Nhan </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 14, 2026</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">February 15, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+p {
+  text-align: justify;
+}
+body, 
+body p, 
+body h1, 
+body h2, 
+body h3, 
+body h4, 
+body h5, 
+body h6, 
+body li {
+  color: #000 !important;
+}
+</style>
+<section id="beyond-the-harvest-what-the-fields-do-not-yield" class="level1">
+<h1>Beyond the Harvest: What the Fields Do Not Yield</h1>
+</section>
+<section id="prologue-echoes-of-history-culture-and-religion" class="level1">
+<h1>Prologue: Echoes of History, Culture, and Religion</h1>
+<p><img src="images/clipboard-2115636119.png" class="img-fluid"> <strong>Figure 1.</strong> <strong>Buddha, Lao Tzu, and Confucius</strong></p>
+<p>(Source: <a href="https://www.si.edu/object/fsg_F1916.109">Smithsonian</a>)</p>
+<p>Throughout the long and often turbulent history of Vietnam, society has been shaped by the philosophical convergence commonly described as <strong>“Tam Giáo Đồng Nguyên”</strong> (The Three Teachings - 三教同源): the blending of Confucianism, Buddhism, and Taoism. These traditions did not merely guide spiritual life; they profoundly influenced social expectations, economic roles, and the perceived hierarchy of labor within a largely agrarian civilization.</p>
+<p>One of the most enduring frameworks to emerge from this worldview was the concept of <strong>“Tứ Dân”</strong> (The Four Occupations - 士農工商): <strong>“Sĩ, Nông, Công, Thương”</strong>. Scholar-officials (士) occupied the highest rung, entrusted with governance and moral leadership. Farmers (农) formed the backbone of the nation, sustaining both economy and culture. Artisans (工) represented skilled productivity, while merchants (商), despite their economic importance, often occupied an ambiguous moral position due to Confucian skepticism toward profit-driven pursuits.</p>
+<p>Although Vietnam officially transitioned away from feudal structures in the twentieth century, culminating in national independence in 1945 and ultimate reunification in 1975, the social logic embedded within these historical classifications did not disappear overnight. Instead, they evolved into modern forms: education remains a gateway to upward mobility reminiscent of the scholar class; agriculture continues as both a cultural foundation and a persistent economic constraint; artisanal skills have transformed into small-scale informal industries; and trade and service work occupy a shifting space between opportunity and precarity.</p>
+<p>In rural and mountainous regions, where geography, ethnic diversity, and uneven development intersect, these historical echoes still influence economic outcomes. Modern laborers are no longer bound by imperial exams or rigid caste-like roles, yet structural legacies remain visible through educational disparities, occupational segregation, and unequal access to markets and capital.</p>
+<p><strong>This report begins from that historical consciousness.</strong> The data analysis presented here is not simply an analysis of numbers; it is a contemporary reflection of how centuries-old social patterns continue to shape livelihoods. By examining income structures, employment sectors, and demographic characteristics among informal rural workers, <strong>I attempt to understand whether Vietnam has truly moved beyond the legacy of the old occupations, or whether those ancient divisions still cast long shadows over modern economic mobility.</strong></p>
+</section>
+<section id="foreword" class="level1">
+<h1>Foreword</h1>
+<p>In this analysis, titled <strong>“Beyond the Harvest: What the Fields Do Not Yield,”</strong> I adopt the lens of a socio-economic analyst examining the livelihoods of informal laborers in Vietnam’s Northern Mountainous Region. Using a dataset of 725 rural workers, this report moves beyond simple descriptive statistics to uncover the structural “ceilings” and “floors” of rural income.</p>
+<p>I will examine how education, gender, and ethnicity interact to shape economic destiny in these developing provinces, aiming to tell a truthful and enlightening story about the barriers to upward mobility.</p>
+<p><img src="images/clipboard-178225604.png" class="img-fluid"></p>
+<p><strong>Figure 2. Rice fields in Northern Vietnam</strong></p>
+<p>(Source: <a href="https://en.travelsense.asia/experience-rice-fields-in-northern-vietnam/">Travel Sense Asia</a>)</p>
+</section>
+<section id="getting-started" class="level1">
+<h1>1. Getting Started</h1>
+<section id="importing-packages" class="level2">
+<h2 class="anchored" data-anchor-id="importing-packages">1.1 Importing Packages</h2>
+<p>We will use the tidyverse family for data processing and ggplot2 (along with ggthemes and patchwork) for the visualisations.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, ggthemes, patchwork, knitr, ggridges, ggtext, readxl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="importing-data" class="level2">
+<h2 class="anchored" data-anchor-id="importing-data">1.2 Importing Data</h2>
+<p>The dataset comes from a survey of informal laborers in rural areas of northern Vietnam. I have attained this data as per the <a href="https://www.sciencedirect.com/science/article/pii/S235234092100576X">research paper’s</a> requirement.</p>
+<p>It can be found on <a href="https://data.mendeley.com/datasets/s6p7dwj3j6/">Mendeley Data</a>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/Upload for elsiver.xlsx"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(raw_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 725
+Columns: 30
+$ CPRO &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ CGEN &lt;chr&gt; "1", "1", "2", "1", "2", "2", "1", "1", "1", "1", "1", "2", "2", …
+$ CRAC &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1,…
+$ CJOB &lt;dbl&gt; 1, 1, 3, 1, 1, NA, 3, 1, 3, 1, 1, 1, 2, 1, NA, 2, 1, 1, 1, 1, 1, …
+$ CQUI &lt;dbl&gt; 3, 5, 3, 3, 3, 4, 1, 3, 3, 3, 3, 3, 2, 3, 5, 1, 2, 2, 2, 2, 2, 2,…
+$ TEIN &lt;dbl&gt; 37, 25, 33, 35, 36, 21, 35, 36, 38, 30, 58, 24, 32, 11, 22, 95, 4…
+$ TAIN &lt;dbl&gt; 25, 22, 25, 30, 28, 17, 25, 28, 26, 22, 40, 24, 23, 11, 20, 30, 3…
+$ TSII &lt;dbl&gt; 7, 0, 0, 5, 0, 0, 0, 0, 12, 2, 0, 0, 0, 0, 0, 50, 17, 10, 12, 15,…
+$ TOIN &lt;dbl&gt; 5, 3, 8, 0, 8, 4, 10, 8, 0, 6, 18, 0, 9, 0, 2, 15, 0, 0, 0, 0, 16…
+$ FEDU &lt;dbl&gt; 1, 0, 1, 1, 0, 0, 3, 0, 2, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 2, 2, 2,…
+$ FVTP &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 2,…
+$ FCRA &lt;dbl&gt; 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ FTAP &lt;dbl&gt; 1, 1, 2, NA, 2, 2, 2, 2, 2, 2, 2, NA, NA, 2, NA, 2, NA, 2, NA, NA…
+$ LHO1 &lt;dbl&gt; NA, 1, NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, NA, …
+$ LHO2 &lt;dbl&gt; 1, NA, NA, NA, 1, 1, NA, 1, 1, 1, 1, 1, NA, 1, NA, NA, NA, NA, NA…
+$ LHO3 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, NA, NA, 1, NA, NA, 1, 1, 1…
+$ LHO4 &lt;dbl&gt; NA, NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ LCRE &lt;dbl&gt; NA, 15, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ LSAV &lt;dbl&gt; 5, NA, 30, NA, NA, 2, 70, NA, 25, 10, 15, NA, NA, 16, NA, 20, NA,…
+$ LWDA &lt;dbl&gt; 240, 350, 260, 300, 360, 360, 260, 260, 300, 300, 270, NA, NA, 20…
+$ PPO1 &lt;dbl&gt; 5, 2, 5, NA, 5, 2, 5, 5, 4, 5, 4, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ PPO2 &lt;dbl&gt; 2, 5, 5, NA, 5, 4, 2, 2, 3, 1, 1, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ PPO3 &lt;dbl&gt; 3, 3, 1, NA, 1, 3, 3, 3, 3, 3, 3, NA, NA, 1, NA, 1, NA, 1, NA, 1,…
+$ PPO4 &lt;dbl&gt; 1, 1, 1, NA, 1, 1, 2, 2, 2, 2, 2, NA, NA, 3, NA, NA, NA, NA, NA, …
+$ PPO5 &lt;dbl&gt; 3, 1, 1, NA, 1, 1, 3, 3, 3, 3, 3, NA, NA, 1, NA, NA, NA, NA, NA, …
+$ ARO1 &lt;dbl&gt; 3, 1, 1, NA, 1, 1, 2, 2, 2, 2, 2, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ ARO2 &lt;dbl&gt; 1, 1, 1, NA, 1, 1, 1, 1, 1, 2, 1, NA, NA, 2, NA, NA, NA, NA, NA, …
+$ ARO3 &lt;dbl&gt; 1, 1, 1, NA, 1, 1, 3, 3, 2, 3, 3, NA, NA, 1, NA, 1, NA, NA, NA, 1…
+$ ARO4 &lt;chr&gt; "3", "3", NA, NA, "2", "2", "3", "3", "3", "3", "3", NA, NA, "3",…
+$ ARO5 &lt;dbl&gt; 1, 1, 1, NA, 1, 1, 3, 3, 3, 3, 3, NA, NA, 1, NA, NA, NA, NA, NA, …</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="data-cleaning-and-quality-assurance" class="level1">
+<h1>2. Data Cleaning and Quality Assurance</h1>
+<p>Before analysis, the data must be transformed from raw numerical codes into meaningful categorical factors, as per the research paper’s specifications.</p>
+<section id="mapping-categorical-variables" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-categorical-variables">2.1 Mapping Categorical Variables</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Data dictionary &amp; Coding strategy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The raw dataset utilizes numerical integers (e.g., 1, 2) to represent categorical variables. To ensure our analysis is readable and our visualization legends are self-explanatory, I will perform the following specific transformations based on the Mai et al.&nbsp;(2021) metadata:</p>
+<ol type="1">
+<li><strong>Province (<code>CPRO</code>)</strong>: Recoded <code>1</code>-<code>5</code> <span class="math inline">\(\rightarrow\)</span> “Tuyen Quang”, “Quang Ninh”, “Ha Giang”, “Yen Bai”, “Bac Giang”.</li>
+<li><strong>Gender (<code>CGEN</code>):</strong> Recoded <code>1</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Male”</strong> and <code>2</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Female”</strong>.</li>
+<li><strong>Ethnicity (<code>CRAC</code>):</strong> Recoded <code>1</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Kinh”</strong> (the majority ethnic group) and <code>2</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Minorities”</strong>.</li>
+<li><strong>Job Type (<code>CJOB</code>):</strong> Recoded <code>1</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Agriculture”</strong>, <code>2</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Service/Ind”</strong>, and <code>3</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Others”</strong>.</li>
+<li><strong>Education (<code>FEDU</code>):</strong> Converted from an integer scale to an ordered factor:
+<ul>
+<li><p><code>0</code> <span class="math inline">\(\rightarrow\)</span> <strong>“None/Other”</strong></p></li>
+<li><p><code>1</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Primary”</strong></p></li>
+<li><p><code>2</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Lower Secondary”</strong></p></li>
+<li><p><code>3</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Upper Secondary”</strong></p></li>
+<li><p><em>Rationale:</em> This explicit ordering ensures that plots display education levels in their logical progression rather than alphabetically.</p></li>
+</ul></li>
+<li><strong>Income Quintile (<code>CQUI</code>)</strong>: Converted to an ordered factor: <code>1</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Top”</strong>, <code>2</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Fourth”</strong>, <code>3</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Middle”</strong>, <code>4</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Second”</strong>, <code>5</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Lowest”</strong>.</li>
+<li><strong>Credit Accessibility (<code>FCRA</code>)</strong>: Recoded <code>1</code> <span class="math inline">\(\rightarrow\)</span> <strong>“No Credit”</strong> and <code>2</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Has Credit”</strong>.</li>
+<li><strong>Vocational Training (<code>FVTP</code>)</strong>: Recoded <code>1</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Short Course”</strong> and <code>2</code> <span class="math inline">\(\rightarrow\)</span> <strong>“Long Course”</strong>.</li>
+</ol>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> raw_data <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Demographics</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Province =</span> <span class="fu">factor</span>(CPRO, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Tuyen Quang"</span>, <span class="st">"Quang Ninh"</span>, <span class="st">"Ha Giang"</span>, <span class="st">"Yen Bai"</span>, <span class="st">"Bac Giang"</span>)),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">factor</span>(CGEN, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ethnicity =</span> <span class="fu">factor</span>(CRAC, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Kinh"</span>, <span class="st">"Minorities"</span>)),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Economics &amp; Education</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Job_Type =</span> <span class="fu">factor</span>(CJOB, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Agriculture"</span>, <span class="st">"Service/Ind"</span>, <span class="st">"Others"</span>)),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Education =</span> <span class="fu">factor</span>(FEDU, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"None/Other"</span>, <span class="st">"Primary"</span>, <span class="st">"Lower Sec"</span>, <span class="st">"Upper Sec"</span>)),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Quintile =</span> <span class="fu">factor</span>(CQUI, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Top"</span>, <span class="st">"Fourth"</span>, <span class="st">"Middle"</span>, <span class="st">"Second"</span>, <span class="st">"Lowest"</span>)),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Interventions</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Credit =</span> <span class="fu">factor</span>(FCRA, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No Credit"</span>, <span class="st">"Has Credit"</span>)),</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Vocational =</span> <span class="fu">factor</span>(FVTP, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Short Course"</span>, <span class="st">"Long Course"</span>)),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Numerics</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Income =</span> <span class="fu">as.numeric</span>(TEIN),</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Agri_Income =</span> <span class="fu">as.numeric</span>(TAIN),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Service_Income =</span> <span class="fu">as.numeric</span>(TSII),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Other_Income =</span> <span class="fu">as.numeric</span>(TOIN)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="quality-check-missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="quality-check-missing-values">2.2 Quality Check: Missing Values</h2>
+<p>If core demographic or income data is missing, the row is unusable for our analysis.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>missing_counts <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Income, Gender, Ethnicity, Job_Type, Province) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">sum</span>(missing_counts) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"⚠️ Missing values detected. Removing incomplete rows...</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  clean_data <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(Income, Gender, Ethnicity, Job_Type, Province)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"✅ No missing values in key columns.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>⚠️ Missing values detected. Removing incomplete rows...</code></pre>
+</div>
+</div>
+</section>
+<section id="quality-check-validating-income" class="level2">
+<h2 class="anchored" data-anchor-id="quality-check-validating-income">2.3 Quality Check: Validating Income</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Handling logical inconsistencies
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A critical step in economic analysis is verifying that “Income” is a positive, non-zero value. In survey data, a value of 0 or negative numbers often indicates:</p>
+<ul>
+<li><p>Missing data: The respondent refused to answer.</p></li>
+<li><p>Unemployment: The respondent is not actually a “laborer.”</p></li>
+<li><p>Data entry error.</p></li>
+</ul>
+<p>By definition, our sample consists of “laborers.” Therefore, anyone with an income of 0 or below is likely an entry error or unemployed, which would skew our data.</p>
+<p><strong>Action</strong> <strong>taken:</strong> I will filter the dataset to include only rows where Income &gt; 0. This ensures our logarithmic scales (if used) do not break and our averages represent actual earners.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for non-positive income</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>invalid_income <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Income <span class="sc">&lt;=</span> <span class="dv">0</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(invalid_income) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"⚠️ Found"</span>, <span class="fu">nrow</span>(invalid_income), <span class="st">"rows with invalid income (&lt;= 0). Removing them from analysis.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  clean_data <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Income <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"✅ Validation passed: All income values are positive (&gt; 0).</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Validation passed: All income values are positive (&gt; 0).</code></pre>
+</div>
+</div>
+</section>
+<section id="quality-check-duplicates" class="level2">
+<h2 class="anchored" data-anchor-id="quality-check-duplicates">2.4 Quality Check: Duplicates</h2>
+<p>A perfectly identical row often indicates a data-entry error where a survey was submitted twice.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dup_count <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">duplicated</span>(clean_data))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (dup_count <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"⚠️ Found"</span>, dup_count, <span class="st">"duplicate rows. Removing them...</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  clean_data <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"✅ No duplicate rows found. Every respondent is unique.</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>⚠️ Found 2 duplicate rows. Removing them...</code></pre>
+</div>
+</div>
+</section>
+<section id="final-data-summary" class="level2">
+<h2 class="anchored" data-anchor-id="final-data-summary">2.5 Final Data Summary</h2>
+<p>We are finally done with cleaning. Below is a snapshot of the clean dataset we will use for the analysis.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># High-level summary of the final clean data</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_respondents =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_income =</span> <span class="fu">mean</span>(Income),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_income =</span> <span class="fu">median</span>(Income),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">percent_female =</span> <span class="fu">mean</span>(Gender <span class="sc">==</span> <span class="st">"Female"</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_stats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  total_respondents avg_income median_income percent_female
+              &lt;int&gt;      &lt;dbl&gt;         &lt;dbl&gt;          &lt;dbl&gt;
+1               673       37.6            32           17.4</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"✅ Final Data Ready: %d respondents.</span><span class="sc">\n</span><span class="st">   Average Income: %.2f Million VND</span><span class="sc">\n</span><span class="st">   Female Representation: %.1f%%"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  summary_stats<span class="sc">$</span>total_respondents,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  summary_stats<span class="sc">$</span>avg_income,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  summary_stats<span class="sc">$</span>percent_female</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ Final Data Ready: 673 respondents.
+   Average Income: 37.63 Million VND
+   Female Representation: 17.4%</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="the-analysis" class="level1">
+<h1>3. The Analysis</h1>
+<p>The northern mountainous regions of Vietnam are a tapestry of ethnic diversity and agricultural tradition. However, beneath the landscape lies a complex economic reality. The following eight visualizations deconstruct the mechanics of rural income, revealing that while agriculture remains the region’s backbone, it frequently acts as a baseline of subsistence rather than a pathway to prosperity. By examining the data, we uncover how macro-geographical divides, systemic gender segregation in the workforce, and compounding ethnic disparities create steep barriers to economic mobility. More importantly, the analysis identifies the critical escape routes: formal education, occupational diversification, and targeted interventions like microfinance, which together serve as the primary ladders for transforming rural livelihoods.</p>
+<p><img src="images/clipboard-2316088154.png" class="img-fluid"></p>
+<p><strong>Figure 3. Rice fields in Northern Vietnam</strong></p>
+<p>(Source: <a href="https://en.travelsense.asia/experience-rice-fields-in-northern-vietnam/">Travel Sense Asia</a>)</p>
+<section id="the-geographic-divide-income-by-province" class="level2">
+<h2 class="anchored" data-anchor-id="the-geographic-divide-income-by-province">3.1 The Geographic Divide: Income by Province</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Plot Approach
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u><strong><em>Technical Approach</em></strong></u></p>
+<p>I utilized a ridge plot (<code>geom_density_ridges</code>) to evaluate the income distribution across the five provinces.</p>
+<ul>
+<li>The provinces are actively reordered on the Y-axis based on their <strong>median income</strong>, transforming a simple distribution chart into a ranked comparison.</li>
+<li>The density estimation captures the “shape” of the population’s wealth, showing where the majority cluster and how far the extremes stretch.</li>
+</ul>
+<p><u><strong><em>Visual Rationale</em></strong></u></p>
+<p>I applied the <code>mako</code> color palette from the <code>viridis</code> package. This provides a striking, colorblind-friendly gradient that visually separates the overlapping ridges. The <code>alpha</code> transparency ensures that peaks in the background remain visible, while gridlines were minimized to keep the focus entirely on the data contours.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">y =</span> <span class="fu">reorder</span>(Province, Income, <span class="at">FUN =</span> median), <span class="at">fill =</span> Province)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">scale =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"mako"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The Geographic Wealth Divide"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Income density distributions ranked across the 5 sampled provinces"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Total Income (Million VND)"</span>, </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: Informal Labourers Survey"</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TH_01_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observation:</strong></p>
+<p>Geography plays a foundational role in earning potential. While most provinces cluster around a similar median income of 35-40 Million VND, the shape of their economies differs vastly. Yen Bai trails noticeably behind with a lower median and a highly compressed distribution, indicating widespread baseline poverty with few breakout earners. Conversely, Bac Giang exhibits the longest “right tail.”</p>
+<p>This indicates a higher concentration of wealthy outliers, suggesting that macro-level infrastructure or proximity to trade routes heavily dictates the baseline earning potential before individual laborer skills are even considered.</p>
+</section>
+<section id="the-gender-wage-gap-occupational-segregation" class="level2">
+<h2 class="anchored" data-anchor-id="the-gender-wage-gap-occupational-segregation">3.2 The Gender Wage Gap &amp; Occupational Segregation</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Plot Approach
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u><strong><em>Technical Approach</em></strong></u></p>
+<p>I utilized a composite layout via the <code>patchwork</code> package to connect a symptom with its cause:</p>
+<p>Plot A employs a Density Plot (<code>geom_density</code>) to show the continuous probability distribution of income between genders.</p>
+<p>Plot B employs a 100% Stacked Bar Chart (<code>geom_bar(position = "fill")</code>) to show the proportional makeup of job sectors for each gender.</p>
+<p><u><strong><em>Visual Rationale</em></strong></u></p>
+<p>For Plot A, transparency (alpha = 0.6) allows the viewer to see exactly where the female distribution is “swallowed” by the male distribution. I used high-contrast <code>Navy</code> and <code>Red</code> for gender to make the distinction immediate. For Plot B, a warm <code>YlOrBr</code> palette differentiates job sectors, creating visual harmony without confusing the colors used for gender.</p>
+</div>
+</div>
+<p><img src="images/clipboard-318702080.png" class="img-fluid"></p>
+<p><strong>Figure 4. Rice fields in Northern Vietnam</strong></p>
+<p>(Source: <a href="https://en.travelsense.asia/experience-rice-fields-in-northern-vietnam/">Travel Sense Asia</a>)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> Income, <span class="at">fill =</span> Gender)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"#2c3e50"</span>, <span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"#e74c3c"</span>)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"A. Income Distribution by Gender"</span>, <span class="at">x =</span> <span class="st">"Total Income (Million VND)"</span>, <span class="at">y =</span> <span class="st">"Density"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">fill =</span> Job_Type)) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"YlOrBr"</span>) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"B. Job Sector Segregation"</span>, <span class="at">x =</span> <span class="st">"Gender"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>, <span class="at">fill =</span> <span class="st">"Sector"</span>) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> <span class="fu">plot_annotation</span>(</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Why do female laborers earn less?"</span>, </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TH_01_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observation:</strong></p>
+<p>Plot A reveals a clear wage gap: the female income distribution is tightly compressed at the lower end, completely lacking the high-earning “long tail” seen in the male workforce.</p>
+<p>Plot B uncovers a primary structural driver for this gap: occupational segregation. A significantly larger proportion of women are confined to the agricultural sector, which yields the lowest average returns.</p>
+<p>Meanwhile, men enjoy vastly greater access to the more lucrative Service/Industrial and “Other” sectors, suggesting systemic or cultural barriers prevent women from transitioning into higher-value labor.</p>
+</section>
+<section id="the-education-premium-a-ceiling-on-opportunity" class="level2">
+<h2 class="anchored" data-anchor-id="the-education-premium-a-ceiling-on-opportunity">3.3 The Education Premium: A ceiling on opportunity?</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Plot Approach
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u><strong><em>Technical Approach</em></strong></u></p>
+<p>I utilized a boxplot overlaid with a “jitter” of raw points. This hybrid approach serves two purposes:</p>
+<ul>
+<li><p>The Boxplot visualizes the summary statistics (Median, IQR) which allows us to compare the “typical” earnings across groups.</p></li>
+<li><p>The Jitter Points reveal the underlying sample density and prevents us from misinterpreting a boxplot based on a very small sample size.</p></li>
+</ul>
+<p><u><strong><em>Visual Rationale</em></strong></u></p>
+<p>I used a distinct sequential color palette <code>GnBu</code> to differentiate the education levels. This reinforces the ordinal nature of the data—darker colors correspond to higher education, visually suggesting “more” or “higher” value.</p>
+</div>
+</div>
+<p><img src="images/clipboard-2316836961.png" class="img-fluid"></p>
+<p><strong>Figure</strong> <strong>5. A classroom in Vietnam’s mountainous region</strong></p>
+<p>(Source: <a href="https://www.childfund.org.au/news-and-stories/how-technology-is-changing-education-in-vietnams-mountain-classrooms">Childfund Australia</a>)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income, <span class="at">fill =</span> Education)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"GnBu"</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The Education Ceiling"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Total Income distribution by Educational Qualification"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education Level"</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Income (Million VND)"</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: Informal Labourers Survey"</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TH_01_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observation:</strong></p>
+<p>There is a clear positive correlation between education and income, but the relationship is non-linear. The jump in median income from “Primary” to “Upper Secondary” is significant, effectively raising the “floor” of earnings.</p>
+<p>Notably, the Upper Secondary cohort possesses a much wider interquartile range and a higher maximum income, indicating that formal education unlocks access to higher-paying opportunities, likely in the service or industrial sectors.</p>
+<p>Conversely, those with “None/Other” education face a hard income ceiling, with very few individuals breaking into the upper income brackets.</p>
+</section>
+<section id="structural-inequality-kinh-vs.-minorities" class="level2">
+<h2 class="anchored" data-anchor-id="structural-inequality-kinh-vs.-minorities">3.4 Structural Inequality: Kinh vs.&nbsp;Minorities</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Plot Approach
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u><strong><em>Technical Approach</em></strong></u></p>
+<p>I combined a Violin Plot (<code>geom_violin</code>) with a miniaturized Boxplot (<code>geom_boxplot</code>):</p>
+<p>The Violin Plot estimates the probability density, showing exactly where the bulk of the population lives economically.</p>
+<p>The inner Boxplot grounds the violin by providing exact statistical markers (the median line and the IQR box).</p>
+<p><u><strong><em>Visual Rationale</em></strong></u></p>
+<p>High-contrast colors (<code>Dark Orange</code> for Kinh, <code>Emerald Green</code> for Minorities) were chosen to sharply delineate the two demographics. The violin shape is left un-trimmed (trim = FALSE) to emphasize the long, thin tail of wealthy outliers.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> Ethnicity, <span class="at">y =</span> Income, <span class="at">fill =</span> Ethnicity)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">trim =</span> <span class="cn">FALSE</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Kinh"</span> <span class="ot">=</span> <span class="st">"#D55E00"</span>, <span class="st">"Minorities"</span> <span class="ot">=</span> <span class="st">"#009E73"</span>)) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The Ethnic Divide"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Income distribution shape and spread by Ethnicity"</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Ethnic Group"</span>, </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Income (Million VND)"</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span> </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TH_01_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observation:</strong></p>
+<p>The violin plot exposes a stark divide. The Ethnic Minority distribution is heavily “bottom-weighted,” indicating the vast majority operate at strict subsistence levels with very little upward variance.</p>
+<p>The Kinh majority, while sharing a similar median, displays a fundamentally different shape with a much more evenly distributed profile and a prominent upper tail reaching toward 200+ Million VND.</p>
+<p>This implies that systemic barriers—such as language, geographic isolation, or unequal market access—severely restrict economic mobility for minorities, trapping them at the lower end of the income spectrum.</p>
+</section>
+<section id="the-compounding-burden-ethnicity-and-education" class="level2">
+<h2 class="anchored" data-anchor-id="the-compounding-burden-ethnicity-and-education">3.5 The Compounding Burden: Ethnicity and Education</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Plot Approach
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u><strong><em>Technical Approach</em></strong></u></p>
+<p>I utilized a Faceted Boxplot (<code>facet_wrap</code>) to analyze three variables simultaneously (Income, Education, and Ethnicity):</p>
+<p>Faceting splits the data into two separate panels, allowing us to see if the “rules” of the economy apply equally to both ethnic groups.</p>
+<p><u><strong><em>Visual Rationale</em></strong></u></p>
+<p>I maintained the exact same <code>GnBu</code> sequential palette used in Observation 3.3 for education. Consistency in color coding reduces cognitive load for the reader, allowing them to instantly recognize that darker colors mean higher education across both faceted panels.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> Education, <span class="at">y =</span> Income, <span class="at">fill =</span> Education)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">outlier.shape =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Ethnicity) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"GnBu"</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Does Education Pay Equally?"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Income returns on education, faceted by Ethnic Group"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education Level"</span>, </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Income (Million VND)"</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, </span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TH_01_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observation:</strong></p>
+<p>This faceted chart reveals a compounding structural disadvantage. Not only do ethnic minorities earn less overall, but the “premium” they receive for pursuing higher education is visibly muted compared to the Kinh majority.</p>
+<p>A Kinh individual with an Upper Secondary education sees a massive spike in both median earning and potential ceiling (the box stretches high).</p>
+<p>However, a Minority individual with the exact same education sees only a modest, compressed increase. This strongly suggests that education alone cannot overcome systemic inequality; hiring biases or localized economic isolation likely play a role.</p>
+</section>
+<section id="moving-beyond-agriculture" class="level2">
+<h2 class="anchored" data-anchor-id="moving-beyond-agriculture">3.6 Moving Beyond Agriculture</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Plot Approach
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u><strong><em>Technical Approach</em></strong></u></p>
+<p>I utilized an aggregated Bar Chart (<code>geom_col</code>) enhanced with Error Bars (<code>geom_errorbar</code>):</p>
+<p>The data was pre-summarized to calculate the Mean Income and the Standard Error (SE) for each job sector.</p>
+<p>The Error Bars visually represent the reliability and volatility of that mean.</p>
+<p><u><strong><em>Visual Rationale</em></strong></u></p>
+<p>A single, professional color (<code>steelblue</code>) was used to prevent the chart from looking like a rainbow, keeping the viewer’s focus on the length of the bars and the width of the error margins. I used <code>coord_flip()</code> to ensure the category labels are perfectly horizontal and readable.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>job_summary <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Job_Type) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Avg_Income =</span> <span class="fu">mean</span>(Income), </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">SE =</span> <span class="fu">sd</span>(Income)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>())</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(job_summary, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Job_Type, Avg_Income), <span class="at">y =</span> Avg_Income)) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> Avg_Income <span class="sc">-</span> SE, <span class="at">ymax =</span> Avg_Income <span class="sc">+</span> SE), <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The Sector Pay Gap"</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Average Income by Primary Job Sector (with Standard Error)"</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Job Sector"</span>, </span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Income (Million VND)"</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TH_01_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observation:</strong></p>
+<p>Escaping purely agricultural work is a primary mechanism for poverty alleviation. The Service/Industrial sector provides a substantially higher average income than Agriculture.</p>
+<p>However, the wider error bars on the Service and “Other” sectors reflect much higher volatility. These non-agricultural sectors contain both high-paying enterprises and low-paying precarious work.</p>
+<p>Agriculture, conversely, has a very tiny error bar, proving it provides a highly stable, but ultimately insufficient, economic baseline for rural families.</p>
+</section>
+<section id="the-structure-of-wealth" class="level2">
+<h2 class="anchored" data-anchor-id="the-structure-of-wealth">3.7 The Structure of Wealth</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Plot Approach
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u><strong><em>Technical Approach</em></strong></u></p>
+<p>I utilized a Stacked Bar Chart (<code>geom_col(position = "stack")</code>) across ordinal wealth brackets:</p>
+<p>The data was pivoted to separate Agri_Income from Non_Agri_Income.</p>
+<p>Stacking allows us to see the absolute total income and the proportional composition of that income simultaneously.</p>
+<p><u><strong><em>Visual Rationale</em></strong></u></p>
+<p>Color psychology was employed here: Brown represents “Agriculture” (earth, farming), while Green represents “Non-Agriculture” (growth, commerce). This intuitive mapping makes the drastic shift in the highest quintile instantly understandable without needing to heavily study the legend.</p>
+</div>
+</div>
+<p><img src="images/clipboard-658152190.png" class="img-fluid"></p>
+<p><strong>Figure 6. Vietnamese street vendors</strong></p>
+<p>(Source: <a href="https://www.economica.vn/news/detail/implementation-of-the-study-on-informal-employment-in-vietnam/2529">Economica</a>)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>income_comp <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Quintile) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Agri =</span> <span class="fu">mean</span>(Agri_Income, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Non_Agri =</span> <span class="fu">mean</span>(Service_Income <span class="sc">+</span> Other_Income, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Quintile, <span class="at">names_to =</span> <span class="st">"Source"</span>, <span class="at">values_to =</span> <span class="st">"Value"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(income_comp, <span class="fu">aes</span>(<span class="at">x =</span> Quintile, <span class="at">y =</span> Value, <span class="at">fill =</span> Source)) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"stack"</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Agri"</span> <span class="ot">=</span> <span class="st">"#8c564b"</span>, <span class="st">"Non_Agri"</span> <span class="ot">=</span> <span class="st">"#2ca02c"</span>)) <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Wealth and Diversification"</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Absolute average income composition across Wealth Quintiles"</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Income Quintile"</span>, </span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Income Volume (Million VND)"</span>, </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Source"</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span> </span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TH_01_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observation:</strong></p>
+<p>Wealth is not generated by simply “farming more.” For the Lowest and Second quintiles, survival is derived almost entirely from agriculture.</p>
+<p>Moving up the wealth ladder, the brown bar (agricultural income) remains relatively flat and constant. It is the sudden explosion of Non-Agricultural income (the green bar) that pushes households into the Top wealth brackets.</p>
+<p>This conclusively shows that agricultural intensification alone is insufficient for major economic mobility; occupational diversification into services or industry is the required catalyst.</p>
+</section>
+<section id="the-credit-catalyst" class="level2">
+<h2 class="anchored" data-anchor-id="the-credit-catalyst">3.8 The Credit Catalyst</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Plot Approach
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><u><strong><em>Technical Approach</em></strong></u></p>
+<p>I utilized a composite <code>patchwork</code> layout to track an intervention from outcome to mechanism:</p>
+<p>Plot A uses a Boxplot to establish if credit correlates with higher total income.</p>
+<p>Plot B uses a Scatter Plot (<code>geom_point</code>) comparing agricultural vs.&nbsp;non-agricultural income, mapped by credit status, to show how the money is being made.</p>
+<p><u><strong><em>Visual Rationale</em></strong></u></p>
+<p>I used a semantic color scheme: “Grey” for No Credit (baseline status quo) and a vibrant “Green” for Has Credit (positive intervention). In the scatter plot, the alpha transparency ensures overlapping dots don’t hide the density of the grey baseline trapped at the bottom.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out NAs in Credit for a clean plot</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>credit_data <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(Credit)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(credit_data, <span class="fu">aes</span>(<span class="at">x =</span> Credit, <span class="at">y =</span> Income, <span class="at">fill =</span> Credit)) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No Credit"</span> <span class="ot">=</span> <span class="st">"#bdc3c7"</span>, <span class="st">"Has Credit"</span> <span class="ot">=</span> <span class="st">"#27ae60"</span>)) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"A. Income by Credit Access"</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Total Income"</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(credit_data, <span class="fu">aes</span>(<span class="at">x =</span> Agri_Income, <span class="at">y =</span> Service_Income <span class="sc">+</span> Other_Income, <span class="at">color =</span> Credit)) <span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No Credit"</span> <span class="ot">=</span> <span class="st">"#bdc3c7"</span>, <span class="st">"Has Credit"</span> <span class="ot">=</span> <span class="st">"#27ae60"</span>)) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"B. Income Diversification"</span>, <span class="at">x =</span> <span class="st">"Agri Income (Mil VND)"</span>, <span class="at">y =</span> <span class="st">"Non-Agri Income (Mil VND)"</span>) <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>, <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_annotation</span>(</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"The Impact of Microfinance"</span>, </span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="TH_01_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Observation:</strong></p>
+<p>Access to credit acts as a profound economic multiplier. Plot A shows a noticeable lift in both the median income and the upper quartile for laborers who possess credit access.</p>
+<p>Plot B illustrates the mechanism behind this lift: while many laborers without credit (grey dots) are stuck flat on the x-axis (meaning they have zero non-agricultural income), laborers with credit (green dots) represent the vast majority of points scaling the y-axis.</p>
+<p>This implies that microfinance loans are rarely used to buy more seeds; rather, they are being aggressively leveraged to start small businesses or transition into the service sector, facilitating the exact diversification identified in our previous observation.</p>
+<p><img src="images/clipboard-1218621449.png" class="img-fluid"></p>
+<p><strong>Figure 7. Modern Vietnam at night</strong></p>
+<p>(Source: The Internet)</p>
+</section>
+</section>
+<section id="food-for-thought-conclusion-beyond-the-modern-occupations" class="level1">
+<h1>4. Food for Thought &amp; Conclusion: Beyond the Modern Occupations</h1>
+<p>If history once divided society into <strong>the Four Occupations</strong>, today’s rural economy appears to operate under a quieter but equally powerful classification system: one shaped by education, geography, gender, ethnicity, and access to opportunity. The dataset reveals that while Vietnam has long moved beyond its feudal structure in law and governance, the echoes of historical hierarchies continue to shape how labor is valued and rewarded. Agriculture, once the moral backbone of society, now functions less as a path to stability and more as a baseline of survival. Meanwhile, education and occupational diversification, modern equivalents of social mobility, serve as the new gateways to prosperity.</p>
+<p><strong>Yet the findings complicate any simplistic narrative of progress.</strong> Education does raise incomes, but not equally for all groups. Credit expands opportunity, but only for those positioned to leverage it. Geography still determines starting lines before individual effort enters the equation. In this sense, the old “occupations” have not disappeared; they have transformed into structural roles within a modern informal economy. Some laborers remain anchored to subsistence much like historical peasants, while others, through access to services, trade, or industry, mirror the merchants who historically operated at the edges of economic transformation.</p>
+<p>The deeper lesson emerging from this analysis is that upward mobility is rarely the result of a single intervention. Instead, it is the product of intersecting advantages: education that unlocks non-agricultural work, credit that enables risk-taking, and social conditions that allow individuals to step beyond inherited roles. Where these forces align, we see income ceilings rise and new pathways emerge. Where they do not, individuals remain trapped within invisible boundaries that resemble the old social categories, only now hidden beneath modern economic terminology.</p>
+<p><strong>Ultimately, “Beyond the Harvest: What the Fields Do Not Yield”</strong> is not simply about income differences among rural laborers. It is a reflection on how historical mindsets, structural inequalities, and contemporary economic forces converge to shape the lived realities of Vietnam’s most vulnerable populations. <strong>The question facing policymakers and development practitioners is not whether rural communities can produce more from the land, but whether systems can be built that allow individuals to move beyond it, without abandoning the cultural and social foundations that define rural life.</strong></p>
+<p>In a country whose past once ranked citizens by occupation, the modern challenge lies in ensuring that occupation no longer determines destiny. True progress will not be measured solely by increased harvests or rising averages, but by whether the next generation of rural laborers can choose their paths freely, unbound by the quiet hierarchies that history left behind.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
