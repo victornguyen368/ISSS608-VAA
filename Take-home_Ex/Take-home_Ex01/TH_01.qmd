@@ -256,30 +256,40 @@ I applied the `mako` color palette from the `viridis` package. This provides a s
 :::
 
 ```{r}
+# Calculate the medians first
+library(dplyr)
+province_medians <- clean_data %>%
+  group_by(Province) %>%
+  summarize(median_income = median(Income, na.rm = TRUE))
+
 #| fig-width: 10
 #| fig-height: 6
 
 ggplot(clean_data, aes(x = Income, y = reorder(Province, Income, FUN = median), fill = Province)) +
-  geom_density_ridges(alpha = 0.7, color = "white", scale = 1.2) +
+  geom_density_ridges(alpha = 0.7, color = "white", scale = 1.2, 
+                      quantile_lines = TRUE, quantiles = 2) +
+  geom_text(data = province_medians, 
+            aes(x = median_income, y = Province, label = paste0(round(median_income, 1), "M")),
+            size = 3.5, color = "black", fontface = "bold",
+            nudge_y = 0.15, nudge_x = 2, hjust = 0) +
   scale_fill_viridis_d(option = "mako", direction = -1) +
   labs(
     title = "The Geographic Wealth Divide",
     subtitle = "Income density distributions ranked across the 5 sampled provinces",
     x = "Total Income (Million VND)", 
-    y = NULL,
-    caption = "Source: Informal Labourers Survey"
+    y = NULL
   ) +
-  theme_minimal(base_size = 14) +
+  theme_minimal(base_size = 10) +
   theme(legend.position = "none", 
         panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold", size = 16))
+        plot.title = element_text(face = "bold", size = 12))
 ```
 
 **Observation:**
 
-Geography plays a foundational role in earning potential. While most provinces cluster around a similar median income of 35-40 Million VND, the shape of their economies differs vastly. Yen Bai trails noticeably behind with a lower median and a highly compressed distribution, indicating widespread baseline poverty with few breakout earners. Conversely, Bac Giang exhibits the longest "right tail."
+Geography plays a foundational role in earning potential. While provinces cluster around a median income of 27.5-35 Million VND, the shape of their economies differs vastly. Yen Bai trails noticeably behind with the lowest median and a highly compressed distribution, indicating widespread baseline income with few breakout earners. Conversely, Bac Giang exhibits a significantly longer and more consistent “right tail” compared to its peers.
 
-This indicates a higher concentration of wealthy outliers, suggesting that macro-level infrastructure or proximity to trade routes heavily dictates the baseline earning potential before individual laborer skills are even considered.
+This indicates a higher concentration of wealthy outliers, suggesting that macro-level infrastructure or proximity to trade hubs in Bac Giang dictates a higher ceiling for earning potential compared to the more constrained distributions of the northern mountainous provinces.
 
 ## 3.2 The Gender Wage Gap & Occupational Segregation
 
@@ -306,37 +316,68 @@ For Plot A, transparency (alpha = 0.6) allows the viewer to see exactly where th
 (Source: [Travel Sense Asia](https://en.travelsense.asia/experience-rice-fields-in-northern-vietnam/))
 
 ```{r}
+library(dplyr)
+library(scales)
+library(patchwork)
+
 #| fig-width: 12
 #| fig-height: 6
 
+# Medians for Plot A
+gender_medians <- clean_data %>%
+  group_by(Gender) %>%
+  summarize(median_income = median(Income, na.rm = TRUE))
+
+# Proportions for Plot B
+job_props <- clean_data %>%
+  count(Gender, Job_Type) %>%
+  group_by(Gender) %>%
+  mutate(prop = n / sum(n),
+         label = percent(prop, accuracy = 1)) # Formats as "38%", "62%", etc.
+
+# Plot A
 p1 <- ggplot(clean_data, aes(x = Income, fill = Gender)) +
   geom_density(alpha = 0.6, color = NA) +
+  # Add dashed vertical lines for the medians
+  geom_vline(data = gender_medians, aes(xintercept = median_income, color = Gender), 
+             linetype = "dashed", size = 0.7, show.legend = FALSE) +
+  # Add the small text labels right next to the lines
+  geom_text(data = gender_medians, 
+            aes(x = median_income, y = Inf, label = paste0(round(median_income, 1), "M"), color = Gender),
+            vjust = 2, hjust = -0.2, size = 3.5, fontface = "bold", show.legend = FALSE) +
   scale_fill_manual(values = c("Male" = "#2c3e50", "Female" = "#e74c3c")) +
+  scale_color_manual(values = c("Male" = "#2c3e50", "Female" = "#e74c3c")) +
   labs(title = "A. Income Distribution by Gender", x = "Total Income (Million VND)", y = "Density") +
   theme_minimal() + 
-  theme(legend.position = "top", plot.title = element_text(face = "bold"))
+  theme(legend.position = "top", plot.title = element_text(face = "bold", size = 10))
 
-p2 <- ggplot(clean_data, aes(x = Gender, fill = Job_Type)) +
-  geom_bar(position = "fill", alpha = 0.9) +
+# Plot B 
+# We use geom_col() instead of geom_bar() so we can easily plot the pre-calculated proportions
+p2 <- ggplot(job_props, aes(x = Gender, y = prop, fill = Job_Type)) +
+  geom_col(alpha = 0.9) +
+  # Add the exact percentage text in the center of each stack
+  geom_text(aes(label = label), position = position_stack(vjust = 0.5), 
+            size = 3.5, fontface = "bold", color = "black") +
   scale_fill_brewer(palette = "YlOrBr") +
   labs(title = "B. Job Sector Segregation", x = "Gender", y = "Proportion", fill = "Sector") +
   scale_y_continuous(labels = scales::percent) +
   theme_minimal() + 
-  theme(legend.position = "right", plot.title = element_text(face = "bold"))
+  theme(legend.position = "right", plot.title = element_text(face = "bold", size = 10))
+
 
 p1 + p2 + plot_annotation(
   title = "Why do female laborers earn less?", 
-  theme = theme(plot.title = element_text(size = 18, face = "bold"))
+  theme = theme(plot.title = element_text(size = 12, face = "bold"))
 )
 ```
 
 **Observation:**
 
-Plot A reveals a clear wage gap: the female income distribution is tightly compressed at the lower end, completely lacking the high-earning "long tail" seen in the male workforce.
+Plot A reveals a clear wage gap: the female income distribution is tightly compressed at the lower end, and mostly lacks the robust high-earning "long tail" seen in the mid-to-high ranges of the male workforce.
 
-Plot B uncovers a primary structural driver for this gap: occupational segregation. A significantly larger proportion of women are confined to the agricultural sector, which yields the lowest average returns.
+Plot B uncovers a surprising structural reality regarding this gap. Contrary to expectations, a significantly larger proportion of men (\~79%) are concentrated in the agricultural sector compared to women (\~63%). Women actually show a higher proportional representation in the Service/Industrial and "Other" sectors.
 
-Meanwhile, men enjoy vastly greater access to the more lucrative Service/Industrial and "Other" sectors, suggesting systemic or cultural barriers prevent women from transitioning into higher-value labor.
+This suggests that the wage gap seen in Plot A is not merely a result of women being confined to agriculture, but likely stems from wage disparities within these specific sectors or men holding the most lucrative outlier roles across the board.
 
 ## 3.3 The Education Premium: A ceiling on opportunity?
 
@@ -363,33 +404,47 @@ I used a distinct sequential color palette `GnBu` to differentiate the education
 (Source: [Childfund Australia](https://www.childfund.org.au/news-and-stories/how-technology-is-changing-education-in-vietnams-mountain-classrooms))
 
 ```{r}
-#| fig-width: 10
+# Pre-calculate the medians for each education level
+edu_medians <- clean_data %>%
+  group_by(Education) %>%
+  summarize(median_income = median(Income, na.rm = TRUE))
+
+#| fig-width: 12
 #| fig-height: 6
 
 ggplot(clean_data, aes(x = Education, y = Income, fill = Education)) +
   geom_boxplot(outlier.shape = NA, alpha = 0.7) +
   geom_jitter(width = 0.2, alpha = 0.3, size = 1) +
+  geom_label(data = edu_medians, 
+             aes(x = Education, y = median_income, 
+                 label = paste0(round(median_income, 1), "M")),
+             vjust = -0.5,           # Push the label just slightly above the median line
+             size = 4, 
+             fontface = "bold", 
+             color = "black",
+             fill = alpha("white", 0.8), # Soft white background so it does not clash with the box/dots
+             label.size = 0,         # Remove the harsh black border
+             show.legend = FALSE) +  
   scale_fill_brewer(palette = "GnBu") +
   labs(
     title = "The Education Ceiling",
     subtitle = "Total Income distribution by Educational Qualification",
     x = "Education Level",
-    y = "Total Income (Million VND)",
-    caption = "Source: Informal Labourers Survey"
+    y = "Total Income (Million VND)"
   ) +
-  theme_minimal(base_size = 14) +
+  theme_minimal(base_size = 10) +
   theme(legend.position = "none",
         panel.grid.major.x = element_blank(),
-        plot.title = element_text(face = "bold", size = 16))
+        plot.title = element_text(face = "bold", size = 12))
 ```
 
 **Observation:**
 
-There is a clear positive correlation between education and income, but the relationship is non-linear. The jump in median income from "Primary" to "Upper Secondary" is significant, effectively raising the "floor" of earnings.
+There is a clear positive correlation between education and income, but the relationship is decidedly non-linear. While incremental gains exist between lower education tiers, such as the modest 11M VND bump from "None/Other" (27M) to "Primary" (38M).
 
-Notably, the Upper Secondary cohort possesses a much wider interquartile range and a higher maximum income, indicating that formal education unlocks access to higher-paying opportunities, likely in the service or industrial sectors.
+The jump in median income from "Lower Secondary" (55M) to "Upper Secondary" (103M) is massive. This near-doubling effectively raises the baseline "floor" of earnings, as the bottom 25th percentile of Upper Secondary earners still outpaces the median of Lower Secondary earners. Notably, the Upper Secondary cohort possesses a much wider interquartile range and the highest maximum income outliers (stretching past 200M VND).
 
-Conversely, those with "None/Other" education face a hard income ceiling, with very few individuals breaking into the upper income brackets.
+This indicates that reaching formal upper secondary education unlocks access to a much broader spectrum of higher-paying opportunities. Conversely, those with “None/Other” education face a hard income ceiling, with earnings tightly compressed around the 27M VND median and almost zero individuals breaking into the upper brackets.
 
 ## 3.4 Structural Inequality: Kinh vs. Minorities
 
@@ -410,12 +465,28 @@ High-contrast colors (`Dark Orange` for Kinh, `Emerald Green` for Minorities) we
 :::
 
 ```{r}
-#| fig-width: 10
+# Pre-calculate the medians for each ethnic group
+ethnic_medians <- clean_data %>%
+  group_by(Ethnicity) %>%
+  summarize(median_income = median(Income, na.rm = TRUE))
+
+#| fig-width: 12
 #| fig-height: 6
 
 ggplot(clean_data, aes(x = Ethnicity, y = Income, fill = Ethnicity)) +
   geom_violin(trim = FALSE, alpha = 0.8) +
   geom_boxplot(width = 0.1, fill = "white", color = "black", outlier.shape = NA) +
+  geom_label(data = ethnic_medians, 
+             aes(x = Ethnicity, y = median_income, 
+                 label = paste0(round(median_income, 1), "M")),
+             nudge_x = 0.12,          # Slides the text to the right of the inner boxplot
+             size = 4.5, 
+             fontface = "bold", 
+             color = "black",
+             fill = alpha("white", 0.6), # Slightly more transparent so the violin color bleeds through
+             label.size = 0,          # Removes the harsh border
+             show.legend = FALSE) +
+             
   scale_fill_manual(values = c("Kinh" = "#D55E00", "Minorities" = "#009E73")) +
   labs(
     title = "The Ethnic Divide",
@@ -423,17 +494,21 @@ ggplot(clean_data, aes(x = Ethnicity, y = Income, fill = Ethnicity)) +
     x = "Ethnic Group", 
     y = "Total Income (Million VND)"
   ) +
-  theme_minimal(base_size = 14) + 
-  theme(legend.position = "none", plot.title = element_text(face = "bold", size = 16))
+  theme_minimal(base_size = 10) + 
+  theme(
+    legend.position = "none", 
+    panel.grid.major.x = element_blank(), # Removes vertical grid lines for a cleaner look
+    plot.title = element_text(face = "bold", size = 12)
+  )
 ```
 
 **Observation:**
 
-The violin plot exposes a stark divide. The Ethnic Minority distribution is heavily "bottom-weighted," indicating the vast majority operate at strict subsistence levels with very little upward variance.
+The violin plot exposes a stark economic divide. The Ethnic Minority distribution is heavily "bottom-weighted" with a lower median income (29 Million VND), indicating the vast majority operate at strict baseline levels with tightly compressed earnings.
 
-The Kinh majority, while sharing a similar median, displays a fundamentally different shape with a much more evenly distributed profile and a prominent upper tail reaching toward 200+ Million VND.
+In contrast, the Kinh majority displays a fundamentally different shape. While its absolute maximum earners don't reach as high as a few extreme minority outliers, the Kinh distribution has a higher median (35 Million VND) and a much thicker profile through the middle-income ranges (50-100 Million VND).
 
-This implies that systemic barriers—such as language, geographic isolation, or unequal market access—severely restrict economic mobility for minorities, trapping them at the lower end of the income spectrum.
+This more evenly distributed profile implies that systemic factors, such as language, geographic isolation, or unequal market access, severely restrict broad economic mobility for minorities, trapping the majority at the lower end of the income spectrum while the Kinh population enjoys much more consistent access to middle-tier incomes.
 
 ## 3.5 The Compounding Burden: Ethnicity and Education
 
@@ -452,11 +527,27 @@ I maintained the exact same `GnBu` sequential palette used in Observation 3.3 fo
 :::
 
 ```{r}
-#| fig-width: 10
+# Pre-calculate the medians for EACH education level WITHIN each ethnic group
+edu_ethnic_medians <- clean_data %>%
+  group_by(Ethnicity, Education) %>%
+  summarize(median_income = median(Income, na.rm = TRUE), .groups = "drop")
+
+#| fig-width: 12
 #| fig-height: 6
 
 ggplot(clean_data, aes(x = Education, y = Income, fill = Education)) +
   geom_boxplot(alpha = 0.8, outlier.shape = 1) +
+  geom_label(data = edu_ethnic_medians, 
+             aes(x = Education, y = median_income, 
+                 label = paste0(round(median_income, 1), "M")),
+             vjust = -0.5,           # Push the label cleanly above the thick median line
+             size = 3.5,             # Slightly smaller font since faceted boxes are narrower
+             fontface = "bold", 
+             color = "black",
+             fill = alpha("white", 0.7), # Soft background for readability
+             label.size = 0,         # Remove the box border
+             show.legend = FALSE) +
+
   facet_wrap(~ Ethnicity) +
   scale_fill_brewer(palette = "GnBu") +
   labs(
@@ -465,19 +556,24 @@ ggplot(clean_data, aes(x = Education, y = Income, fill = Education)) +
     x = "Education Level", 
     y = "Total Income (Million VND)"
   ) +
-  theme_bw(base_size = 14) +
-  theme(legend.position = "none", 
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.title = element_text(face = "bold", size = 16))
+  theme_bw(base_size = 10) +
+  theme(
+    legend.position = "none", 
+    panel.grid.major.x = element_blank(), # Remove vertical gridlines for less clutter
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"), # Bold angled text
+    plot.title = element_text(face = "bold", size = 12),
+    strip.text = element_text(face = "bold", size = 10),
+    strip.background = element_rect(fill = "grey95", color = "grey70") 
+  )
 ```
 
 **Observation:**
 
-This faceted chart reveals a compounding structural disadvantage. Not only do ethnic minorities earn less overall, but the "premium" they receive for pursuing higher education is visibly muted compared to the Kinh majority.
+This chart reveals a complex and unequal dynamic regarding the returns on education. For the Kinh majority, achieving an Upper Secondary education provides a highly reliable economic safety net; their income distribution is tightly clustered with a high median (104 Million VND), effectively guaranteeing a higher "floor" for earnings.
 
-A Kinh individual with an Upper Secondary education sees a massive spike in both median earning and potential ceiling (the box stretches high).
+In contrast, the return on education for Ethnic Minorities is characterized by extreme variance rather than a guaranteed premium. The Upper Secondary cohort for minorities possesses the widest interquartile range on the chart. While their median earning remains lower than their Kinh counterparts and a large portion remains stuck near subsistence levels, their potential ceiling stretches vastly higher, containing some of the highest outliers in the dataset.
 
-However, a Minority individual with the exact same education sees only a modest, compressed increase. This strongly suggests that education alone cannot overcome systemic inequality; hiring biases or localized economic isolation likely play a role.
+This suggests that while education for minorities does not overcome systemic barriers universally or provide a secure income floor, it acts as a high-stakes catalyst that unlocks massive earning potential for a select few, creating steep inequality within the minority cohort itself.
 
 ## 3.6 Moving Beyond Agriculture
 
@@ -498,38 +594,51 @@ A single, professional color (`steelblue`) was used to prevent the chart from lo
 :::
 
 ```{r}
-#| fig-width: 10
-#| fig-height: 6
-
+# Summarize the data (Added na.rm = TRUE just to be safe!)
 job_summary <- clean_data %>% 
   group_by(Job_Type) %>% 
   summarise(
-    Avg_Income = mean(Income), 
-    SE = sd(Income)/sqrt(n())
+    Avg_Income = mean(Income, na.rm = TRUE), 
+    SE = sd(Income, na.rm = TRUE)/sqrt(n())
   )
 
+#| fig-width: 12
+#| fig-height: 6
+
 ggplot(job_summary, aes(x = reorder(Job_Type, Avg_Income), y = Avg_Income)) +
-  geom_col(fill = "steelblue", width = 0.6) +
-  geom_errorbar(aes(ymin = Avg_Income - SE, ymax = Avg_Income + SE), width = 0.1, linewidth = 0.8) +
+  geom_col(fill = "steelblue", width = 0.6, alpha = 0.9) +
+  geom_errorbar(aes(ymin = Avg_Income - SE, ymax = Avg_Income + SE), 
+                width = 0.15, linewidth = 0.8, color = "grey20") +
+  geom_text(aes(label = paste0(round(Avg_Income, 1), " M")), 
+            nudge_x = 0.35,       # Pushes the text visually up (above the bar)
+            size = 4.5, 
+            fontface = "bold", 
+            color = "black") +
   coord_flip() +
+  # Adds a bit of breathing room on the right side so the top error bar is not cut off
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) + 
   labs(
     title = "The Sector Pay Gap",
     subtitle = "Average Income by Primary Job Sector (with Standard Error)",
     x = "Job Sector", 
     y = "Average Income (Million VND)"
   ) +
-  theme_minimal(base_size = 14) +
-  theme(plot.title = element_text(face = "bold", size = 16),
-        panel.grid.major.y = element_blank())
+  theme_minimal(base_size = 10) +
+  theme(
+    plot.title = element_text(face = "bold", size = 12),
+    panel.grid.major.y = element_blank(),
+    panel.grid.major.x = element_line(color = "grey85", linetype = "dashed"), # Softens background lines
+    axis.text.y = element_text(face = "bold", size = 10, color = "grey20")  
+  )
 ```
 
 **Observation:**
 
-Escaping purely agricultural work is a primary mechanism for poverty alleviation. The Service/Industrial sector provides a substantially higher average income than Agriculture.
+Escaping purely agricultural work appears to be a primary mechanism for economic advancement. The Service/Industrial sector provides a substantially higher average income (approx. 50 Million VND) compared to Agriculture (34.2 Million VND).
 
-However, the wider error bars on the Service and "Other" sectors reflect much higher volatility. These non-agricultural sectors contain both high-paying enterprises and low-paying precarious work.
+However, the wider standard error bars on the Service and “Other” sectors reflect higher income volatility. These non-agricultural sectors likely encompass a wide spectrum of roles, from high-paying enterprise positions to lower-paying precarious work.
 
-Agriculture, conversely, has a very tiny error bar, proving it provides a highly stable, but ultimately insufficient, economic baseline for rural families.
+Conversely, Agriculture exhibits a very narrow error bar, indicating that while it provides a highly stable and predictable economic baseline, that baseline remains tightly capped at the lower end of the income spectrum.
 
 ## 3.7 The Structure of Wealth
 
@@ -556,20 +665,31 @@ Color psychology was employed here: Brown represents "Agriculture" (earth, farmi
 (Source: [Economica](https://www.economica.vn/news/detail/implementation-of-the-study-on-informal-employment-in-vietnam/2529))
 
 ```{r}
-#| fig-width: 10
-#| fig-height: 6
+library(tidyr) #for pivot_longer
 
-income_comp <- clean_data %>%
-  group_by(Quintile) %>%
+# Prepare the data
+income_comp <- clean_data %>% 
+  group_by(Quintile) %>% 
   summarise(
     Agri = mean(Agri_Income, na.rm=TRUE), 
     Non_Agri = mean(Service_Income + Other_Income, na.rm=TRUE)
-  ) %>%
+  ) %>% 
   pivot_longer(-Quintile, names_to = "Source", values_to = "Value")
 
+#| fig-width: 12
+#| fig-height: 6
+
 ggplot(income_comp, aes(x = Quintile, y = Value, fill = Source)) +
-  geom_col(position = "stack", width = 0.7) +
+  geom_col(position = "stack", width = 0.7, alpha = 0.95) +
+  geom_text(aes(label = ifelse(Value > 2, paste0(round(Value, 1), "M"), "")),
+            position = position_stack(vjust = 0.5), 
+            size = 2.5, 
+            fontface = "bold", 
+            color = "white") +
   scale_fill_manual(values = c("Agri" = "#8c564b", "Non_Agri" = "#2ca02c")) +
+  # Add slightly more headroom so the tallest bar does not touch the title
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  
   labs(
     title = "Wealth and Diversification",
     subtitle = "Absolute average income composition across Wealth Quintiles",
@@ -577,18 +697,24 @@ ggplot(income_comp, aes(x = Quintile, y = Value, fill = Source)) +
     y = "Average Income Volume (Million VND)", 
     fill = "Source"
   ) +
-  theme_minimal(base_size = 14) + 
-  theme(legend.position = "top", plot.title = element_text(face = "bold", size = 16),
-        panel.grid.major.x = element_blank())
+  theme_minimal(base_size = 10) + 
+  theme(
+    legend.position = "top", 
+    plot.title = element_text(face = "bold", size = 12),
+    panel.grid.major.x = element_blank(),
+    axis.text.x = element_text(face = "bold", size = 10) # Anchors the quintile categories
+  )
 ```
 
 **Observation:**
 
-Wealth is not generated by simply "farming more." For the Lowest and Second quintiles, survival is derived almost entirely from agriculture.
+Wealth is not generated by simply "farming more." For the Lowest and Second quintiles, survival is derived predominantly from agriculture, which provides 16.9M and 19.1M VND respectively, dwarfing their minimal non-agricultural income (\~3.4M to 3.9M VND).
 
-Moving up the wealth ladder, the brown bar (agricultural income) remains relatively flat and constant. It is the sudden explosion of Non-Agricultural income (the green bar) that pushes households into the Top wealth brackets.
+Moving up the wealth ladder, while agricultural income (the brown bar) does increase in absolute terms—growing from 16.9M at the bottom to 42.7M VND in the Top quintile. Its growth is relatively linear and capped.
 
-This conclusively shows that agricultural intensification alone is insufficient for major economic mobility; occupational diversification into services or industry is the required catalyst.
+The true differentiator is the sudden explosion of Non-Agricultural income (the green bar). It shifts from a minor supplement in the lower quintiles to the dominant source of wealth in the Top quintile, skyrocketing to an impressive 76.5M VND (nearly double the agricultural income of that exact same group).
+
+This conclusively shows that agricultural intensification alone is insufficient for major economic mobility; occupational diversification into services or industry is the required catalyst to break into the highest earning brackets.
 
 ## 3.8 The Credit Catalyst
 
@@ -609,39 +735,76 @@ I used a semantic color scheme: "Grey" for No Credit (baseline status quo) and a
 :::
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 6
-
-# Filter out NAs in Credit for a clean plot
+# Filter the data
 credit_data <- clean_data %>% drop_na(Credit)
+
+# Pre-calculate the medians for Plot A (Boxplot)
+credit_medians <- credit_data %>%
+  group_by(Credit) %>%
+  summarize(median_income = median(Income, na.rm = TRUE))
+
+# Pre-calculate the "Centroids" for Plot B (Scatterplot)
+centroid_data <- credit_data %>%
+  group_by(Credit) %>%
+  summarize(
+    med_agri = median(Agri_Income, na.rm = TRUE),
+    med_non_agri = median(Service_Income + Other_Income, na.rm = TRUE)
+  )
 
 p3 <- ggplot(credit_data, aes(x = Credit, y = Income, fill = Credit)) +
   geom_boxplot(alpha = 0.7, outlier.shape = 1) +
+  geom_label(data = credit_medians, 
+             aes(x = Credit, y = median_income, 
+                 label = paste0(round(median_income, 1), "M")),
+             vjust = -0.5, size = 4, fontface = "bold", color = "black",
+             fill = alpha("white", 0.8), label.size = 0, show.legend = FALSE) + 
   scale_fill_manual(values = c("No Credit" = "#bdc3c7", "Has Credit" = "#27ae60")) +
-  labs(title = "A. Income by Credit Access", x = NULL, y = "Total Income") +
-  theme_minimal() + 
-  theme(legend.position = "none", plot.title = element_text(face = "bold"))
+  labs(title = "A. Income by Credit Access", x = NULL, y = "Total Income (Million VND)") +
+  theme_minimal(base_size = 10) + 
+  theme(legend.position = "none", 
+        plot.title = element_text(face = "bold", size = 10),
+        axis.text.x = element_text(face = "bold", size = 10),
+        panel.grid.major.x = element_blank()) # Clean background
 
 p4 <- ggplot(credit_data, aes(x = Agri_Income, y = Service_Income + Other_Income, color = Credit)) +
-  geom_point(alpha = 0.6, size = 2) +
+  geom_point(alpha = 0.5, size = 2) + # Dropped alpha slightly so overlapping points are clearer
+  geom_point(data = centroid_data, 
+             aes(x = med_agri, y = med_non_agri, fill = Credit),
+             shape = 23,        # 23 is a diamond shape that can have a border
+             size = 5,          # Make it large
+             color = "black",   # Give it a crisp black border to stand out
+             stroke = 1.2, 
+             show.legend = FALSE) +
+             
   scale_color_manual(values = c("No Credit" = "#bdc3c7", "Has Credit" = "#27ae60")) +
-  labs(title = "B. Income Diversification", x = "Agri Income (Mil VND)", y = "Non-Agri Income (Mil VND)") +
-  theme_minimal() + 
-  theme(legend.position = "right", plot.title = element_text(face = "bold"))
+  scale_fill_manual(values = c("No Credit" = "#bdc3c7", "Has Credit" = "#27ae60")) +
+  labs(title = "B. Income Diversification", 
+       x = "Agri Income (Mil VND)", 
+       y = "Non-Agri Income (Mil VND)",
+       color = "Credit Access") +
+  theme_minimal(base_size = 10) + 
+  theme(legend.position = "right", 
+        plot.title = element_text(face = "bold", size = 10))
+
+#| fig-width: 12
+#| fig-height: 6
 
 p3 + p4 + plot_annotation(
-  title = "The Impact of Microfinance", 
-  theme = theme(plot.title = element_text(size = 18, face = "bold"))
+  title = "The Impact of Microfinance"
+  theme = theme(
+    plot.title = element_text(size = 12, face = "bold", margin = margin(b = 15)),
+    plot.caption = element_text(color = "grey50", size = 10)
+  )
 )
 ```
 
 **Observation:**
 
-Access to credit acts as a profound economic multiplier. Plot A shows a noticeable lift in both the median income and the upper quartile for laborers who possess credit access.
+Access to credit appears to introduce mid-level income variance rather than acting as a guaranteed baseline elevator or a catalyst for extreme wealth. Plot A shows that laborers with and without credit share a nearly identical median income (32.5M vs 32M). However, the "Has Credit" cohort displays a slightly wider interquartile range and a lower bottom whisker, indicating that microfinance carries risk: it introduces more income variability without necessarily raising the baseline "floor" of earnings.
 
-Plot B illustrates the mechanism behind this lift: while many laborers without credit (grey dots) are stuck flat on the x-axis (meaning they have zero non-agricultural income), laborers with credit (green dots) represent the vast majority of points scaling the y-axis.
+Plot B reveals a nuanced reality regarding diversification. While credit access allows laborers to experiment with non-agricultural work, it is not the primary driver of the highest-tier enterprises. The highest non-agricultural earners, as well as the most extreme total income outliers in Plot A, belong overwhelmingly to the "No Credit" group.
 
-This implies that microfinance loans are rarely used to buy more seeds; rather, they are being aggressively leveraged to start small businesses or transition into the service sector, facilitating the exact diversification identified in our previous observation.
+This implies that while microfinance provides initial capital for mid-level entrepreneurial attempts, the most lucrative, high-ceiling ventures are likely self-funded or operated by households that have outgrown the need for microcredit entirely.
 
 ![](images/clipboard-1218621449.png)
 
@@ -651,12 +814,12 @@ This implies that microfinance loans are rarely used to buy more seeds; rather, 
 
 # Food for Thought & Conclusion: Beyond the Modern Occupations
 
-If history once divided society into **the Four Occupations**, today’s rural economy appears to operate under a quieter but equally powerful classification system: one shaped by education, geography, gender, ethnicity, and access to opportunity. The dataset reveals that while Vietnam has long moved beyond its feudal structure in law and governance, the echoes of historical hierarchies continue to shape how labor is valued and rewarded. Agriculture, once the moral backbone of society, now functions less as a path to stability and more as a baseline of survival. Meanwhile, education and occupational diversification, modern equivalents of social mobility, serve as the new gateways to prosperity.
+If history once divided society into **the Four Occupations**, today’s rural economy appears to operate under a quieter but equally powerful classification system: one shaped by education, geography, gender, ethnicity, and access to capital. The dataset reveals that while Vietnam has long moved beyond its feudal structure in law and governance, the echoes of historical hierarchies continue to shape how labor is valued and rewarded. Agriculture, once the moral backbone of society, now functions less as a path to stability and more as a tightly capped baseline of survival. Meanwhile, education and occupational diversification, the modern equivalents of social mobility, serve as the necessary gateways to prosperity.
 
-**Yet the findings complicate any simplistic narrative of progress.** Education does raise incomes, but not equally for all groups. Credit expands opportunity, but only for those positioned to leverage it. Geography still determines starting lines before individual effort enters the equation. In this sense, the old “occupations” have not disappeared; they have transformed into structural roles within a modern informal economy. Some laborers remain anchored to subsistence much like historical peasants, while others, through access to services, trade, or industry, mirror the merchants who historically operated at the edges of economic transformation.
+**Yet the data complicates any simplistic narrative of progress.** Education does raise incomes, but its function fractures along ethnic lines: for the Kinh majority, it provides a reliable economic safety net, whereas for ethnic minorities, it acts as a high-stakes gamble defined by extreme variance. The modern shift away from agriculture into services and trade is the undeniable engine of top-tier wealth. However, this transition is not a universal equalizer; paradoxically, women have diversified out of agriculture at higher rates than men, yet remain disproportionately trapped beneath the wage ceilings of those very same sectors. Furthermore, while interventions like microcredit introduce crucial mid-level entrepreneurial mobility, the data explicitly shows that the absolute highest economic strata are occupied almost entirely by self-funded households who have outgrown the need for leverage.
 
-The deeper lesson emerging from this analysis is that upward mobility is rarely the result of a single intervention. Instead, it is the product of intersecting advantages: education that unlocks non-agricultural work, credit that enables risk-taking, and social conditions that allow individuals to step beyond inherited roles. Where these forces align, we see income ceilings rise and new pathways emerge. Where they do not, individuals remain trapped within invisible boundaries that resemble the old social categories, only now hidden beneath modern economic terminology.
+The deeper lesson emerging from this analysis is that upward mobility is rarely the result of a single intervention. Instead, it is the product of intersecting advantages: education that unlocks non-agricultural work, capital that enables risk-taking, and structural conditions that allow individuals to step beyond inherited demographic roles. Where these forces align, we see income ceilings shatter and new pathways emerge. Where they do not, individuals remain trapped within invisible boundaries that resemble the old social categories, only now hidden beneath modern economic terminology.
 
-**Ultimately, “Beyond the Harvest: What the Fields Do Not Yield”** is not simply about income differences among rural laborers. It is a reflection on how historical mindsets, structural inequalities, and contemporary economic forces converge to shape the lived realities of Vietnam’s most vulnerable populations. **The question facing policymakers and development practitioners is not whether rural communities can produce more from the land, but whether systems can be built that allow individuals to move beyond it, without abandoning the cultural and social foundations that define rural life.**
+**Ultimately, “Beyond the Harvest: What the Fields Do Not Yield”** is not simply about income differences among rural laborers. It is a reflection on how historical mindsets, structural inequalities, and contemporary economic forces converge to shape the lived realities of Vietnam’s most vulnerable populations. The question facing policymakers and development practitioners is not whether rural communities can produce more from the land, but whether systems can be built that allow individuals to move beyond it, without abandoning the cultural and social foundations that define rural life.
 
 In a country whose past once ranked citizens by occupation, the modern challenge lies in ensuring that occupation no longer determines destiny. True progress will not be measured solely by increased harvests or rising averages, but by whether the next generation of rural laborers can choose their paths freely, unbound by the quiet hierarchies that history left behind.
