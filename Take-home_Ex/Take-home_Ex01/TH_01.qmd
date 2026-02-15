@@ -790,7 +790,7 @@ p4 <- ggplot(credit_data, aes(x = Agri_Income, y = Service_Income + Other_Income
 #| fig-height: 6
 
 p3 + p4 + plot_annotation(
-  title = "The Impact of Microfinance"
+  title = "The Impact of Microfinance",
   theme = theme(
     plot.title = element_text(size = 12, face = "bold", margin = margin(b = 15)),
     plot.caption = element_text(color = "grey50", size = 10)
@@ -812,7 +812,7 @@ This implies that while microfinance provides initial capital for mid-level entr
 
 (Source: The Internet)
 
-# Food for Thought & Conclusion: Beyond the Modern Occupations
+# 4. Food for Thought & Conclusion: Beyond the Modern Occupations
 
 If history once divided society into **the Four Occupations**, today’s rural economy appears to operate under a quieter but equally powerful classification system: one shaped by education, geography, gender, ethnicity, and access to capital. The dataset reveals that while Vietnam has long moved beyond its feudal structure in law and governance, the echoes of historical hierarchies continue to shape how labor is valued and rewarded. Agriculture, once the moral backbone of society, now functions less as a path to stability and more as a tightly capped baseline of survival. Meanwhile, education and occupational diversification, the modern equivalents of social mobility, serve as the necessary gateways to prosperity.
 
@@ -823,3 +823,9 @@ The deeper lesson emerging from this analysis is that upward mobility is rarely 
 **Ultimately, “Beyond the Harvest: What the Fields Do Not Yield”** is not simply about income differences among rural laborers. It is a reflection on how historical mindsets, structural inequalities, and contemporary economic forces converge to shape the lived realities of Vietnam’s most vulnerable populations. The question facing policymakers and development practitioners is not whether rural communities can produce more from the land, but whether systems can be built that allow individuals to move beyond it, without abandoning the cultural and social foundations that define rural life.
 
 In a country whose past once ranked citizens by occupation, the modern challenge lies in ensuring that occupation no longer determines destiny. True progress will not be measured solely by increased harvests or rising averages, but by whether the next generation of rural laborers can choose their paths freely, unbound by the quiet hierarchies that history left behind.
+
+# 5. Reference List
+
+Mai, A. N., Pham, T. H., Hoang, H. T., & Nguyen, H. H. T. (2021). *Income of informal labourers in rural areas: A survey dataset of northern mountainous regions in Vietnam*. Data in Brief, 38, 107292. <https://doi.org/10.1016/j.dib.2021.107292>
+
+Mendeley Data (2021). *Income of informal labourers in rural areas dataset*. Retrieved from <https://data.mendeley.com/datasets/s6p7dwj3j6/1>
