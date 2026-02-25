@@ -1,0 +1,12 @@
+name: demo
+title: demo
+username: victornguyen368
+account: victornguyen368
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 16729753
+bundleId: 11610532
+url: https://victornguyen368.shinyapps.io/demo/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
