@@ -1173,7 +1173,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html#step-2-plotting-the-slopegraph",
     "title": "Hands-on Exercise 7",
     "section": "6.2 Step 2: Plotting the slopegraph",
-    "text": "6.2 Step 2: Plotting the slopegraph\n\n\nCode\nrice %&gt;% \n  mutate(Year = factor(Year)) %&gt;%\n  filter(Year %in% c(1961, 1980)) %&gt;%\n  newggslopegraph(Year, Yield, Country,\n                Title = \"Rice Yield of Top 11 Asian Counties\",\n                SubTitle = \"1961-1980\",\n                Caption = \"Prepared by: Nor Hendra\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipThing to learn from the code chunk above\n\n\n\nFor effective data visualisation design, factor() is used convert the value type of Year field from numeric to factor."
+    "text": "6.2 Step 2: Plotting the slopegraph\n\n\nCode\nrice %&gt;% \n  mutate(Year = factor(Year)) %&gt;%\n  filter(Year %in% c(1961, 1980)) %&gt;%\n  newggslopegraph(Year, Yield, Country,\n                Title = \"Rice Yield of Top 11 Asian Counties\",\n                SubTitle = \"1961-1980\",\n                Caption = \"Prepared by: Victor Nguyen\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipThing to learn from the code chunk above\n\n\n\nFor effective data visualisation design, factor() is used convert the value type of Year field from numeric to factor."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html#bumpcharts-in-r",
