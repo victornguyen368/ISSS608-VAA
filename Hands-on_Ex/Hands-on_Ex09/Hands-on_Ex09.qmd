@@ -1,6 +1,4 @@
 ---
-
----
 title: "Hands-on Exercise 9"
 author: "Nguyen Trong Nhan"
 date: "11 March 2026"
@@ -9,6 +7,8 @@ format: html
 editor: visual
 freeze: true
 execute:
+
+
   eval: true
   echo: true
   warning: false
